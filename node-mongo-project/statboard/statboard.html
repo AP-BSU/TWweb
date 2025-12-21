@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatBoard</title>
+    <link rel="stylesheet" href="statboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <header class="board-header">
+            <h1>StatBoard</h1>
+        </header>
+
+        <div class="stats-grid">
+            
+            <div class="stat-card">
+                <div class="icon">
+                    <img src="https://images.unsplash.com/photo-1555421689-d68471e189f2?auto=format&fit=crop&w=150&q=80" alt="User Visits">
+                </div>
+                <h2>User Visits</h2>
+                <div class="number" id="visit-count">Loading...</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">
+                    <img src="https://images.unsplash.com/photo-1615486515391-e1290e6378c5?auto=format&fit=crop&w=150&q=80" alt="Sections Clicked">
+                </div>
+                <h2>Sections Clicked</h2>
+                <div class="number" id="click-count">Loading...</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="User Signed Up">
+                </div>
+                <h2>User Signed Up</h2>
+                <div class="number" id="user-count">Loading...</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">
+                    <img src="https://images.unsplash.com/photo-1596524430978-70980156d445?auto=format&fit=crop&w=150&q=80" alt="Feedbacks">
+                </div>
+                <h2>Feedbacks Submitted</h2>
+                <div class="number" id="feedback-count">Loading...</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">
+                    <img src="https://images.unsplash.com/photo-1558494949-efdeb6bf80c1?auto=format&fit=crop&w=150&q=80" alt="MongoDB Server">
+                </div>
+                <h2>MongoDB Server Status</h2>
+                <div class="status-text" id="server-status">Checking...</div>
+            </div>
+
+            <div class="stat-card">
+            <div class="icon">
+                <img src="https://images.unsplash.com/photo-1536514743879-9791fe92d971?auto=format&fit=crop&w=150&q=80" alt="Embeds Status">
+            </div>
+            <h2>Embeds Status</h2>
+            <div class="status-text" id="embed-status">Checking...</div>
+        </div>
+
+    </div> <div class="feedback-section">
+        <h2 class="section-title">Feedback Boards</h2>
+        <div id="feedback-list-container" class="feedback-list">
+            <p class="feedback-status">Loading feedbacks...</p>
+        </div>
+    </div>
+
+</div> <script src="node-mongo-project/stats.js"></script>
+</body>
+</html>
