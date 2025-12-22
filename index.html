@@ -224,21 +224,23 @@
 				</div>
 
 			<!--Scripts-->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/browser.listener.js"></script>
-			<script src="assets/js/browser.APIs.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="stats.js"></script>
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/browser.listener.js"></script>
+			<script src="/assets/js/browser.APIs.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
 				
 				<!-- Special target script -->
-				<script>
-				document.addEventListener('DOMContentLoaded', () => {
-				const API_BASE = 'http://localhost:3000/users';
+			<script>
+			document.addEventListener('DOMContentLoaded', () => {
+			    // Automatically switches between Localhost (for testing) and Railway (for real users)
+			    const API_BASE = window.location.hostname === 'localhost' 
+			        ? "http://localhost:3000/users" 
+			        : "twweb-production.up.railway.app";
 
 				// Pings Statboard about user's visit
 				fetch(`${API_BASE}/track`, {
@@ -275,6 +277,7 @@
 	</body>
 
 </html>
+
 
 
 
