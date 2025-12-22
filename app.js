@@ -3,24 +3,41 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs'); // <--- ADD THIS
 
 const app = express();
-// For Vercel 'process.env.PORT', fallsback to 3000 locally
 const port = process.env.PORT || 3000;
 
-// MIDDLEWARE
+// --- DEBUGGING BLOCK (Add this right here) ---
+console.log('--- SERVER FILE CHECK ---');
+console.log('Current Folder:', __dirname);
+try {
+    const rootFiles = fs.readdirSync(__dirname);
+    console.log('Files in Root:', rootFiles);
+    
+    if (rootFiles.includes('assets')) {
+        console.log('Assets folder found!');
+        const assetFiles = fs.readdirSync(path.join(__dirname, 'assets'));
+        console.log('Inside Assets:', assetFiles);
+    } else {
+        console.log('Assets folder is MISSING from Root!');
+    }
+} catch (error) {
+    console.log('Debug Error:', error);
+}
+console.log('---------------------------');
+// ---------------------------------------------
+
 app.use(express.json());
 app.use(cors());
 
-// --- DATABASE CONNECTION ---
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB active'))
   .catch(err => console.log('Error connecting to MongoDB:', err));
 
-// --- THE MAGIC LINE (Serves HTML/CSS/JS) ---
-// This tells Express: "Serve ANY file found in the root folder automatically"
-// This fixes your 'assets', 'index.html', and 'stats.js' paths instantly.
-app.use(express.static(__dirname));
+// FORCE STATIC PATHS (Update this line)
+app.use(express.static(path.join(__dirname))); 
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // --- ROUTES ---
 
@@ -46,3 +63,4 @@ app.listen(port, () => {
 
 // REQUIRED FOR VERCEL
 module.exports = app;
+
