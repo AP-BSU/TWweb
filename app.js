@@ -3,12 +3,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs'); // <--- ADD THIS
+const fs = require('fs');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// --- DEBUGGING BLOCK (Add this right here) ---
+// debugging
 console.log('--- SERVER FILE CHECK ---');
 console.log('Current Folder:', __dirname);
 try {
@@ -26,10 +26,16 @@ try {
     console.log('Debug Error:', error);
 }
 console.log('---------------------------');
-// ---------------------------------------------
 
 app.use(express.json());
 app.use(cors());
+
+// 404 Logger for Missing Assets
+// This only runs if the 'app.use' above failed to find the file.
+app.use('/assets/*', (req, res) => {
+    console.error(`"${req.originalUrl}" not found.`);
+    res.status(404).send('Asset not found');
+});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB active'))
@@ -37,14 +43,14 @@ mongoose.connect(process.env.MONGO_URI)
 
 // FORCE STATIC PATHS (Update this line)
 app.use(express.static(path.join(__dirname))); 
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('assets', express.static(path.join(__dirname, 'assets')));
 
 // --- ROUTES ---
 
 // Dashboard Shortcut
 app.get('/statboard', (req, res) => {
     // Redirects to the actual file location
-    res.redirect('/statboard/statboard.html');
+    res.redirect('statboard/statboard.html');
 });
 
 // Explicit Homepage Route (Optional, but good for safety)
@@ -61,6 +67,5 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
-// REQUIRED FOR VERCEL
 module.exports = app;
 

@@ -224,15 +224,15 @@
 				</div>
 
 			<!--Scripts-->
-			<script src="/assets/js/jquery.min.js"></script>
-			<script src="/assets/js/jquery.scrolly.min.js"></script>
-			<script src="/assets/js/jquery.scrollex.min.js"></script>
-			<script src="/assets/js/browser.min.js"></script>
-			<script src="/assets/js/browser.listener.js"></script>
-			<script src="/assets/js/browser.APIs.js"></script>
-			<script src="/assets/js/breakpoints.min.js"></script>
-			<script src="/assets/js/util.js"></script>
-			<script src="/assets/js/main.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/browser.listener.js"></script>
+			<script src="assets/js/browser.APIs.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 				
 				<!-- Special target script -->
 			<script>
@@ -272,6 +272,42 @@
 				});
 			});
 		</script>
+		
+		<!-- File Check -->
+		<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			console.log("Checking essential assets");
+			
+			// Select all CSS links and JS scripts with a source
+			const assets = [
+				...document.querySelectorAll('link[rel="stylesheet"]'),
+				...document.querySelectorAll('script[src]')
+			];
+
+			assets.forEach(element => {
+				// Get the URL from href (CSS) or src (JS)
+				const url = element.getAttribute('href') || element.getAttribute('src');
+				
+				// Skip external links (like CDNs) if you only want to check local files
+				// if (url && url.startsWith('http')) return; 
+
+				if (url) {
+					fetch(url, { method: 'HEAD' })
+						.then(response => {
+							if (!response.ok) {
+								console.error(`ERROR: Missing file: "${url}" (Status: ${response.status})`);
+								console.warn(` Layout missing`);
+							} else {
+								// console.log(`Loaded: ${url}`); // Uncomment to see successes
+							}
+						})
+						.catch(err => {
+							console.error(`NETWORK ERROR: "${url} failed"`);
+						});
+				}
+			});
+		});
+	</script>
 	</body>
 
 </html>
